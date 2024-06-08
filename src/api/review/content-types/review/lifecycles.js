@@ -1,4 +1,4 @@
-r"use strict";
+"use strict";
 
 const calculateSingleRating = (reviews, category) => {
   const validRatings = reviews.filter((rating) => rating[category] !== 0);
