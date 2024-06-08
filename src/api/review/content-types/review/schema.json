@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "rating_food": {
+      "type": "decimal"
+    },
+    "rating_service": {
+      "type": "decimal"
+    },
+    "rating_ambience": {
+      "type": "decimal"
+    },
+    "rating_price": {
+      "type": "decimal"
+    },
+    "description": {
+      "type": "text"
+    },
+    "images": {
+      "type": "component",
+      "repeatable": true,
+      "component": "images.images"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "reviews"
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "reviews"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "review"
+    }
+  }
+}
