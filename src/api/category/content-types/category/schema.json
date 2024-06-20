@@ -23,6 +23,16 @@
       "relation": "manyToOne",
       "target": "api::restaurant.restaurant",
       "inversedBy": "categories"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
