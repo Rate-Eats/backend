@@ -1,6 +1,6 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Struct, Schema } from '@strapi/strapi';
 
-export interface ImagesImages extends Schema.Component {
+export interface ImagesImages extends Struct.ComponentSchema {
   collectionName: 'components_images_images';
   info: {
     displayName: 'images';
@@ -8,18 +8,18 @@ export interface ImagesImages extends Schema.Component {
     description: '';
   };
   attributes: {
-    name: Attribute.Text;
-    hash: Attribute.Text;
-    extension: Attribute.String;
-    path: Attribute.Text;
-    main: Attribute.Boolean;
-    menu: Attribute.Boolean;
+    name: Schema.Attribute.Text;
+    hash: Schema.Attribute.Text;
+    extension: Schema.Attribute.String;
+    path: Schema.Attribute.Text;
+    main: Schema.Attribute.Boolean;
+    menu: Schema.Attribute.Boolean;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
       'images.images': ImagesImages;
     }
   }

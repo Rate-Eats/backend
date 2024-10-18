@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -27,11 +27,6 @@
     "description": {
       "type": "text"
     },
-    "images": {
-      "type": "component",
-      "repeatable": true,
-      "component": "images.images"
-    },
     "users": {
       "type": "relation",
       "relation": "manyToOne",
@@ -49,6 +44,11 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "review"
+    },
+    "images": {
+      "type": "component",
+      "repeatable": true,
+      "component": "images.images"
     }
   }
 }

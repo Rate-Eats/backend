@@ -13,19 +13,17 @@ const calculateSingleRating = (reviews, category) => {
 };
 
 const fetchRestaurant = async (reviewId) => {
-  const review = await strapi.entityService.findOne(
-    "api::review.review",
-    reviewId,
-    {
-      populate: {
-        restaurant: {
-          populate: {
-            reviews: true,
-          },
+  const review = await strapi.documents("api::review.review").findOne({
+    documentId: reviewId,
+
+    populate: {
+      restaurant: {
+        populate: {
+          reviews: true,
         },
       },
     }
-  );
+  });
   return review.restaurant;
 };
 
@@ -41,8 +39,7 @@ module.exports = {
 
 async function handleReviewChange(event, lifecyclePhase) {
   const { result } = event;
-
-  const reviewId = result.id;
+  const reviewId = result.documentId;
 
   if (reviewId) {
     const restaurant = await fetchRestaurant(reviewId);
@@ -59,14 +56,12 @@ async function handleReviewChange(event, lifecyclePhase) {
       (ambience.rating + food.rating + service.rating + price.rating) /
       ratingLength;
 
-    await strapi.entityService.update(
-      "api::restaurant.restaurant",
-      restaurant.id,
-      {
-        data: {
-          median_rating: medianRating.toFixed(1),
-        },
+    await strapi.documents("api::restaurant.restaurant").update({
+      documentId: restaurant.documentId,
+
+      data: {
+        median_rating: medianRating.toFixed(1),
       }
-    );
+    });
   }
 }
