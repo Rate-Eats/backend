@@ -567,6 +567,48 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
+  collectionName: 'homepages';
+  info: {
+    singularName: 'homepage';
+    pluralName: 'homepages';
+    displayName: 'Homepage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    homepage_section_1_header_title: Schema.Attribute.String;
+    homepage_section_1_header_subtitle: Schema.Attribute.Text;
+    homepage_section_1_left_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    homepage_section_1_right_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    homepage_section_1_middle_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    homepage_section_2_register_text: Schema.Attribute.Text;
+    homepage_section_2_register_join_button: Schema.Attribute.String;
+    homepage_section_2_register_explore_button: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::homepage.homepage'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
   collectionName: 'restaurants';
   info: {
@@ -1034,6 +1076,7 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
       'api::comment.comment': ApiCommentComment;
+      'api::homepage.homepage': ApiHomepageHomepage;
       'api::restaurant.restaurant': ApiRestaurantRestaurant;
       'api::review.review': ApiReviewReview;
       'admin::permission': AdminPermission;
