@@ -24,12 +24,6 @@
       "type": "text",
       "required": true
     },
-    "images": {
-      "displayName": "images",
-      "type": "component",
-      "repeatable": true,
-      "component": "images.images"
-    },
     "categories": {
       "type": "relation",
       "relation": "oneToMany",
@@ -44,6 +38,16 @@
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "restaurant"
+    },
+    "images": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }

@@ -7,23 +7,22 @@
   },
   "options": {},
   "attributes": {
-    "name": {
-      "type": "text"
-    },
-    "hash": {
-      "type": "text"
-    },
-    "extension": {
-      "type": "string"
-    },
-    "path": {
-      "type": "text"
-    },
     "main": {
       "type": "boolean"
     },
     "menu": {
       "type": "boolean"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

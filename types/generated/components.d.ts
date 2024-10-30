@@ -8,12 +8,9 @@ export interface ImagesImages extends Struct.ComponentSchema {
     description: '';
   };
   attributes: {
-    name: Schema.Attribute.Text;
-    hash: Schema.Attribute.Text;
-    extension: Schema.Attribute.String;
-    path: Schema.Attribute.Text;
     main: Schema.Attribute.Boolean;
     menu: Schema.Attribute.Boolean;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 

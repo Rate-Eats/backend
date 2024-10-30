@@ -626,13 +626,16 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     description: Schema.Attribute.Text;
     address: Schema.Attribute.Text & Schema.Attribute.Required;
-    images: Schema.Attribute.Component<'images.images', true>;
     categories: Schema.Attribute.Relation<
       'oneToMany',
       'api::category.category'
     >;
     median_rating: Schema.Attribute.Decimal;
     reviews: Schema.Attribute.Relation<'oneToMany', 'api::review.review'>;
+    images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -675,7 +678,10 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
       'api::restaurant.restaurant'
     >;
     comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
-    images: Schema.Attribute.Component<'images.images', true>;
+    images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

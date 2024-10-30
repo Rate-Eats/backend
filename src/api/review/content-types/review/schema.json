@@ -46,9 +46,15 @@
       "mappedBy": "review"
     },
     "images": {
-      "type": "component",
-      "repeatable": true,
-      "component": "images.images"
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
