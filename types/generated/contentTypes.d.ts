@@ -506,7 +506,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Schema.Attribute.String;
@@ -609,6 +609,40 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiReactionReaction extends Struct.CollectionTypeSchema {
+  collectionName: 'reactions';
+  info: {
+    singularName: 'reaction';
+    pluralName: 'reactions';
+    displayName: 'Reaction';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    review: Schema.Attribute.Relation<'manyToOne', 'api::review.review'>;
+    type: Schema.Attribute.Enumeration<['like', 'dislike']>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reaction.reaction'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
   collectionName: 'restaurants';
   info: {
@@ -682,6 +716,9 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    dislikeCount: Schema.Attribute.Integer;
+    likeCount: Schema.Attribute.Integer;
+    reactions: Schema.Attribute.Relation<'oneToMany', 'api::reaction.reaction'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -1083,6 +1120,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::comment.comment': ApiCommentComment;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::reaction.reaction': ApiReactionReaction;
       'api::restaurant.restaurant': ApiRestaurantRestaurant;
       'api::review.review': ApiReviewReview;
       'admin::permission': AdminPermission;

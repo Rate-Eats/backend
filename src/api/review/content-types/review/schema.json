@@ -55,6 +55,18 @@
         "videos",
         "audios"
       ]
+    },
+    "dislikeCount": {
+      "type": "integer"
+    },
+    "likeCount": {
+      "type": "integer"
+    },
+    "reactions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reaction.reaction",
+      "mappedBy": "review"
     }
   }
 }
