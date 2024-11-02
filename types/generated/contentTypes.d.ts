@@ -719,6 +719,7 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
     dislikeCount: Schema.Attribute.Integer;
     likeCount: Schema.Attribute.Integer;
     reactions: Schema.Attribute.Relation<'oneToMany', 'api::reaction.reaction'>;
+    commentCount: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

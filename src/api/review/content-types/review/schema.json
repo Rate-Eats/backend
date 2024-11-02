@@ -67,6 +67,9 @@
       "relation": "oneToMany",
       "target": "api::reaction.reaction",
       "mappedBy": "review"
+    },
+    "commentCount": {
+      "type": "integer"
     }
   }
 }

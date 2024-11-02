@@ -69,6 +69,11 @@ module.exports = createCoreController("api::review.review", ({ strapi }) => ({
         type: {
           $eq: "like",
         },
+        review: {
+          documentId: {
+            $contains: reviewDocumentId,
+          },
+        },
       },
     });
     const dislikeCount = await strapi
@@ -77,6 +82,11 @@ module.exports = createCoreController("api::review.review", ({ strapi }) => ({
         filters: {
           type: {
             $eq: "dislike",
+          },
+          review: {
+            documentId: {
+              $contains: reviewDocumentId,
+            },
           },
         },
       });
