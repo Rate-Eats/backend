@@ -1,16 +1,16 @@
-import type { Struct, Schema } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
 export interface ImagesImages extends Struct.ComponentSchema {
   collectionName: 'components_images_images';
   info: {
+    description: '';
     displayName: 'images';
     icon: 'picture';
-    description: '';
   };
   attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     main: Schema.Attribute.Boolean;
     menu: Schema.Attribute.Boolean;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
