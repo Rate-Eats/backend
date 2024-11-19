@@ -22,7 +22,7 @@ const fetchRestaurant = async (reviewId) => {
           reviews: true,
         },
       },
-    }
+    },
   });
   return review.restaurant;
 };
@@ -34,6 +34,10 @@ module.exports = {
 
   async afterUpdate(event) {
     await handleReviewChange(event, "afterCreate");
+  },
+
+  async beforeDelete(event) {
+    await removeRelatedComments(event, "beforeDelete");
   },
 };
 
@@ -61,7 +65,33 @@ async function handleReviewChange(event, lifecyclePhase) {
 
       data: {
         median_rating: medianRating.toFixed(1),
-      }
+      },
     });
+  }
+}
+
+async function removeRelatedComments(event) {
+  const review = await strapi.documents("api::review.review").findFirst({
+    filters: {
+      id: {
+        $eq: event.params.where.id,
+      },
+    },
+
+    populate: {
+      comments: true,
+    },
+  });
+
+  if (review && review.comments.length > 0) {
+    const commentIds = review.comments.map((comment) => comment.documentId);
+
+    await Promise.all(
+      commentIds.map((id) =>
+        strapi.documents("api::comment.comment").delete({
+          documentId: id,
+        })
+      )
+    );
   }
 }
